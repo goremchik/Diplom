@@ -4,25 +4,58 @@
 
 export default class DraggbleItem {
 
-    constructor(el) {
-        this.element = el;
+    constructor(container, icon, view, name) {
+        this.container = container;
+        this.icon = icon;
+        this.view = view;
 
-        el.addEventListener('dragstart', this.dragStart.bind(this));
-        el.addEventListener('dragend', this.dragEnd.bind(this));
-        el.addEventListener('dragover', this.move.bind(this));
+        this.element = this.createElement(name);
+        this.setElementPosition(view.x, view.y);
+
+        //this.element.addEventListener('dragstart', this.dragStart.bind(this));
+        this.element.addEventListener('dragend', this.dragEnd.bind(this));
+        //this.element.addEventListener('dragover', this.move.bind(this));
     }
 
     callbackOnDragEnd() {}
 
-    dragStart(e) { }
+    //dragStart(e) { }
 
     dragEnd(e) {
         let el = e.target;
-        el.style.left = e.clientX + 'px';
-        el.style.top = e.clientY + 'px';
+        this.setElementPosition(e.clientX, e.clientY);
         this.callbackOnDragEnd();
     }
 
-    move(e) { }
+    setElementPosition(x, y) {
+        this.element.style.left = x + 'px';
+        this.element.style.top = y + 'px';
+        this.view.x = x;
+        this.view.y = y;
+    }
+
+    createElement(name) {
+        let el = document.createElement('div');
+
+        el.className = 'draggable';
+        el.setAttribute('draggable', 'true');
+
+        if (this.icon) {
+            let img = document.createElement('img');
+            img.src = this.icon;
+            img.className = 'item-img';
+            el.appendChild(img);
+        }
+
+        let span = document.createElement('div');
+        span.style.textAlign = 'center';
+        span.innerText = name;
+        el.appendChild(span);
+
+        this.container.appendChild(el);
+        return el;
+    }
+
+    //move(e) { }
 
 }

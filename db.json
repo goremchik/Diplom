@@ -1,16 +1,17 @@
 {
   "gateway": {
     "view": {
-      "x": 502,
-      "y": 385
+      "x": 565,
+      "y": 267
     },
     "id": "1",
     "name": "Gateway",
+    "connectionType": "Ethernet",
+    "deviceType": "gateway",
     "additional": {
       "customParam": "Value"
     },
     "config": {
-      "connectionType": "Ethernet",
       "ip": "192.168.1.2",
       "mask": "255.255.255.0",
       "ipGateway": "192.168.1.1"
@@ -23,9 +24,10 @@
         },
         "id": "11",
         "name": "Router 1",
+        "connectionType": "Wifi",
+        "deviceType": "router",
         "additional": {},
         "config": {
-          "connectionType": "Wifi",
           "ip": "192.168.2.2",
           "mask": "255.255.255.0",
           "ipGateway": "192.168.2.1"
@@ -38,9 +40,10 @@
             },
             "id": "111",
             "name": "Node 11",
+            "connectionType": "Bluetooth",
+            "deviceType": "node",
             "additional": {},
             "config": {
-              "connectionType": "Bluetooth",
               "name": "ble1",
               "password": "123"
             }
@@ -52,9 +55,10 @@
             },
             "id": "112",
             "name": "Node 12",
+            "connectionType": "Bluetooth",
+            "deviceType": "node",
             "additional": {},
             "config": {
-              "connectionType": "Bluetooth",
               "name": "ble1",
               "password": "123"
             }
@@ -63,14 +67,15 @@
       },
       {
         "view": {
-          "x": 650,
-          "y": 300
+          "x": 807,
+          "y": 464
         },
         "id": "12",
         "name": "Router 2",
+        "connectionType": "Wifi",
+        "deviceType": "router",
         "additional": {},
         "config": {
-          "connectionType": "Wifi",
           "ip": "192.168.2.3",
           "mask": "255.255.255.0",
           "ipGateway": "192.168.2.1"
@@ -78,28 +83,30 @@
         "nodes": [
           {
             "view": {
-              "x": 848,
-              "y": 142
+              "x": 1277,
+              "y": 616
             },
             "id": "121",
             "name": "Node 21",
+            "connectionType": "Bluetooth",
+            "deviceType": "node",
             "additional": {},
             "config": {
-              "connectionType": "Bluetooth",
               "name": "ble2",
               "password": "123"
             }
           },
           {
             "view": {
-              "x": 850,
-              "y": 400
+              "x": 1056,
+              "y": 351
             },
             "id": "122",
             "name": "Node 22",
+            "connectionType": "Bluetooth",
+            "deviceType": "node",
             "additional": {},
             "config": {
-              "connectionType": "Bluetooth",
               "name": "ble2",
               "password": "123"
             }

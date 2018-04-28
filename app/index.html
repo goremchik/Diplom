@@ -7,6 +7,7 @@
   <title>IoT Controle System</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
   <link rel="stylesheet" href="./index.css">
 
 </head>
@@ -14,8 +15,7 @@
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand h1" href="#">Controle IoT System</a>
     <form class="form-inline">
-        <button id="addNodeBtn" class="btn btn-outline-secondary" type="button">Add Node</button>
-        <button id="addRouterBtn" class="btn btn-outline-secondary" type="button">Add Router</button>
+        <button class="btn btn-outline-secondary" type="button" onclick="location.reload()">Cancel</button>
         <button id="saveBtn" class="btn btn-outline-secondary" type="button">Save</button>
     </form>
   </nav>
@@ -23,6 +23,8 @@
   <div class="container drag-container" id="dragContainer">
 
   </div>
+
+  <div id="linesContainer"></div>
 
   <div class="modal" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" role="document">
@@ -37,6 +39,7 @@
           <p>Modal body text goes here.</p>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="modalDeleteBtn">Delete</button>
           <button type="button" class="btn btn-primary" id="modalSaveBtn">Save changes</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
@@ -44,9 +47,92 @@
     </div>
   </div>
 
+  <div id='contextMenu'>
+    <ul id='contextItems'>
+      <li id="addRouterBtn">Add Router</li>
+      <li id="addNodeBtn">Add Node</li>
+    </ul>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <script src="./index.js"></script>
+
+  <script>
+      (function($) {
+
+          var helpers = {
+              createLine: function(x1, y1, x2, y2, options){
+
+                  // Check if browser is Internet Exploder ;)
+                  var isIE = navigator.userAgent.indexOf("MSIE") > -1;
+                  if (x2 < x1){
+                      var temp = x1;
+                      x1 = x2;
+                      x2 = temp;
+                      temp = y1;
+                      y1 = y2;
+                      y2 = temp;
+                  }
+                  var line = document.createElement("div");
+
+                  line.className = options.class;
+
+                  // Formula for the distance between two points
+                  // http://www.mathopenref.com/coorddist.html
+                  var length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+
+                  line.style.width = length + "px";
+                  line.style.borderBottom = options.stroke + "px " + options.style;
+                  line.style.borderColor = options.color;
+                  line.style.position = "absolute";
+                  line.style.zIndex = options.zindex;
+
+                  if(isIE){
+                      line.style.top = (y2 > y1) ? y1 + "px" : y2 + "px";
+                      line.style.left = x1 + "px";
+                      var nCos = (x2-x1)/length;
+                      var nSin = (y2-y1)/length;
+                      line.style.filter = "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=" + nCos + ", M12=" + -1*nSin + ", M21=" + nSin + ", M22=" + nCos + ")";
+                  }else{
+                      var angle = Math.atan((y2-y1)/(x2-x1));
+                      line.style.top = y1 + 0.5*length*Math.sin(angle) + "px";
+                      line.style.left = x1 - 0.5*length*(1 - Math.cos(angle)) + "px";
+                      line.style.transform = line.style.MozTransform = line.style.WebkitTransform = line.style.msTransform = line.style.OTransform= "rotate(" + angle + "rad)";
+                  }
+                  return line;
+              }
+          }
+
+
+          $.fn.line = function( x1, y1, x2, y2, options, callbacks) {
+              return $(this).each(function(){
+                  if($.isFunction(options)){
+                      callback = options;
+                      options = null;
+                  }else{
+                      callback = callbacks;
+                  }
+                  options = $.extend({}, $.fn.line.defaults, options);
+
+                  $(this).append(helpers.createLine(x1,y1,x2,y2,options)).promise().done(function(){
+                      if($.isFunction(callback)){
+                          callback.call();
+                      }
+                  });
+
+
+              });
+          };
+          $.fn.line.defaults = {  zindex : 10000,
+              color : '#000000',
+              stroke: "1",
+              style: "solid",
+              class: "line",
+          };
+      })(jQuery);
+
+  </script>
 </body>
 </html>

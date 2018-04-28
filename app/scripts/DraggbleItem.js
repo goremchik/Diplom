@@ -25,6 +25,7 @@ export default class DraggbleItem {
         let el = e.target;
         this.setElementPosition(e.clientX, e.clientY);
         this.callbackOnDragEnd();
+
     }
 
     setElementPosition(x, y) {

@@ -33,6 +33,5 @@
     "server": "webpack-dev-server",
     "data-server": "json-server --watch db.json"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

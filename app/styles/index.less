@@ -1,9 +1,12 @@
+@import "reset";
 
 .draggable {
   position: absolute;
   cursor: pointer;
   min-height: 10px;
   min-width: 10px;
+
+  z-index: 100;
 
   top: 0;
   left: 0;
@@ -18,4 +21,58 @@
 
 .input-group {
   padding: 5px;
+}
+
+.input-text-left {
+  min-width: 150px;
+
+}
+
+.type-name {
+  width: 150px;
+}
+
+.delete-icon {
+  cursor: pointer;
+}
+
+.line {
+  width: 100%;
+  color: black;
+  height: 1px;
+  background-color: black;
+  position: absolute;
+  z-index: 2;
+}
+
+
+#contextItems {
+  margin-top: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  font-size: 17px;
+  color: #333333;
+  cursor: pointer;
+}
+
+#contextMenu {
+  display: none;
+  position: absolute;
+  border: 1px solid #B2B2B2;
+  width: 150px;
+  background: #fefefe;
+  box-shadow: 3px 3px 2px #DDD;
+  border-radius: 2px;
+  z-index: 1000;
+}
+
+li{
+  padding: 3px;
+  padding-left: 10px;
+}
+
+
+#contextItems :hover{
+  background: #eee;
 }

@@ -22,80 +22,132 @@ export default class NetworkItem extends DraggbleItem {
         this.config = config;
         this.deviceType = deviceType;
 
-        this.element.addEventListener('click', () => { this.onClick(); });
+        this.element.addEventListener('click', (e) => { this.onClick(e); });
     }
 
     toJSON() {
-        if (this.deleted) {
-            return;
-
-        }
+        if (this.deleted) { return; }
 
         let jsonObj = Object.assign({}, this);
         delete jsonObj.container;
         delete jsonObj.element;
         delete jsonObj.icon;
         delete jsonObj.deleted;
+        delete jsonObj.isNew;
 
         return jsonObj;
     }
 
+    onClick(e) {
+        if (e.ctrlKey) {
+            if (!window.prevElement) {
+                window.prevElement = this;
+                return;
+            }
 
-    onClick() {
+            window.nextElement = this;
 
-        $('#modal').modal('show');
-        modalBody.innerHTML = `
-            <h4>Main</h4>
+            let el1 = window.prevElement;
+            let el2 = window.nextElement;
+
+            if (el1.deviceType != el2.deviceType) {
+
+                switch (el1.deviceType) {
+                    case 'node':
+                        if (el2.deviceType === 'router') {
+                            el2.nodes.push(el1);
+                            el2.drawLines('nodes', el2.id);
+                        }
+                        break;
+
+                    case 'router':
+                        if (el2.deviceType === 'node') {
+                            el1.nodes.push(el2);
+                            el1.drawLines('nodes', el1.id);
+                        } else {
+                            el2.routers.push(el1);
+                            el2.drawLines('routers', el2.id);
+                        }
+                        break;
+
+                    case 'gateway':
+                        if (el2.deviceType === 'router') {
+                            el1.routers.push(el2);
+                            el1.drawLines('routers', el1.id);
+                        }
+                        break;
+                }
+
+            }
+
+            delete window.prevElement;
+            delete window.nextElement;
+
+        } else {
+
+            $('#modal').modal('show');
+            modalBody.innerHTML = `
+            <h3>Main</h3>
             <div id="mainContent">
                 ${ this.createInput('id', this.id) }
                 ${ this.createInput('name', this.name) }
                 ${ this.createInput('connectionType', this.connectionType) }
-                ${ this.createInput('deviceType', this.deviceType, true) }
+                ${ this.createInput('deviceType', this.deviceType, true) }                
+                ${ this.deviceType === 'node' ?
+            this.createInput('dataType', this.dataType) +
+            this.createInput('measureUnits', this.measureUnits) : '' }
             </div>
             
-            <h4>Config</h4>
+            <h3>Config</h3>
             <div id="configContent">
                 ${ this.getConfigHtml() }
             </div>
             <div class="clearfix"><button id="addConfigBtn" type="button" class="btn btn-light" style="float:right;">+ Add</button></div>
             
-            <h4>Additional</h4>
+            <h3>Additional</h3>
             <div id="additionalContent">
                 ${ this.getAdditionalHtml() }
             </div>
         `;
 
-        modalDeleteBtn.style.display = this.deviceType === 'gateway' ? 'none' : 'block';
+            modalDeleteBtn.style.display = this.deviceType === 'gateway' ? 'none' : 'block';
 
-        modalDeleteBtn.onclick = () => {
-            this.element.remove();
-            this.deleted = true;
-        };
+            modalDeleteBtn.onclick = () => {
+                this.element.remove();
+                this.deleted = true;
+
+                if (this.deviceType === 'router') {
+                    this.drawLines('nodes', this.id);
+                }
+                $('#modal').modal('hide');
+
+            };
 
 
-        document.getElementById('addConfigBtn').addEventListener('click', () => {
-            let configContent = document.getElementById('configContent');
+            document.getElementById('addConfigBtn').addEventListener('click', () => {
+                let configContent = document.getElementById('configContent');
 
-            let input = document.createElement('div');
-            input.innerHTML = this.createInput('', '', false, 'config');
+                let input = document.createElement('div');
+                input.innerHTML = this.createInput('', '', false, 'config');
 
-            let el = input.children[0];
-            el.querySelector('.delete-icon').addEventListener('click', () => {
-                el.remove();
+                let el = input.children[0];
+                el.querySelector('.delete-icon').addEventListener('click', () => {
+                    el.remove();
+                });
+
+                configContent.appendChild(el)
             });
 
-            configContent.appendChild(el)
-        });
+            let deleteIcons = modalBody.querySelectorAll('.delete-icon');
 
-        let deleteIcons = modalBody.querySelectorAll('.delete-icon');
+            deleteIcons.forEach((el) => {
+                el.addEventListener('click', () => {
+                    el.parentNode.parentNode.parentNode.remove();
+                })
+            });
 
-        deleteIcons.forEach((el) => {
-            el.addEventListener('click', () => {
-                el.parentNode.parentNode.parentNode.remove();
-            })
-        });
-
-        modalSaveBtn.onclick = this.onSaveClick.bind(this);
+            modalSaveBtn.onclick = this.onSaveClick.bind(this);
+        }
     }
 
     //delete
@@ -135,7 +187,6 @@ export default class NetworkItem extends DraggbleItem {
                         obj[key] = el.querySelector('.value-item').value;
                     }
 
-
                  });
 
         return obj;
@@ -146,9 +197,19 @@ export default class NetworkItem extends DraggbleItem {
         this.name = this.getDataValue('name');
         this.connectionType =this.getDataValue('connectionType');
 
+        if (this.deviceType === 'node') {
+            this.measureUnits = this.getDataValue('measureUnits');
+            this.dataType = this.getDataValue('dataType');
+        }
+
         this.config = this.getGroupValue('config');
         this.additional = this.getGroupValue('additional');
         $('#modal').modal('hide');
+
+        console.log(this);
+
+        this.element.querySelector('div').innerHTML = this.name;
+
     }
 
     createInput(name, value, disabled, groupName) {
@@ -179,8 +240,11 @@ export default class NetworkItem extends DraggbleItem {
         }
 
         container.innerHTML = '';
+
+        if (this.deleted) { return; }
+
         this[name].forEach(router => {
-            $(container).line(view.x, view.y, router.view.x, router.view.y, { color:"#000", stroke: 2, zindex: 1 });
+            $(container).line(view.x, view.y, router.view.x, router.view.y, { color:"#000", stroke: 1, zindex: 1 });
         });
     }
 

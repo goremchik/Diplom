@@ -4,6 +4,8 @@
 
 import './styles/index.less';
 import Gateway from './scripts/Gateway';
+import Router from './scripts/Router';
+import Node from './scripts/Node';
 
 let url = 'http://localhost:3000/gateway';
 let container = document.getElementById('dragContainer');
@@ -23,7 +25,7 @@ saveBtn.addEventListener('click', () => {
         headers: { 'content-type': 'application/json' },
         method: 'POST',
     })
-    .then(response => response);
+    .then(response => { location.reload() });
 });
 
 
@@ -40,4 +42,36 @@ document.addEventListener("contextmenu", e => {
 document.addEventListener("click", e => {
     contextMenu.style.display = 'none';
 });
+
+document.getElementById('addRouterBtn').addEventListener("click", e => {
+    let x = e.screenX, y = e.screenY;
+    new Router(container, {
+        view: { x, y },
+        additional: {},
+        config: {},
+        name: '',
+        id: '',
+        connectionType: '',
+        deviceType: 'router',
+        nodes: [],
+        isNew: true
+    });
+    //contextMenu.style.display = 'none';
+});
+
+document.getElementById('addNodeBtn').addEventListener("click", e => {
+    let x = e.screenX, y = e.screenY;
+    new Node(container, {
+        view: { x, y },
+        additional: {},
+        config: {},
+        name: '',
+        id: '',
+        connectionType: '',
+        deviceType: 'node',
+        isNew: true
+    });
+    //contextMenu.style.display = 'none';
+});
+
 

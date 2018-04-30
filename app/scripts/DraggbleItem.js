@@ -12,20 +12,12 @@ export default class DraggbleItem {
         this.element = this.createElement(name);
         this.setElementPosition(view.x, view.y);
 
-        //this.element.addEventListener('dragstart', this.dragStart.bind(this));
         this.element.addEventListener('dragend', this.dragEnd.bind(this));
-        //this.element.addEventListener('dragover', this.move.bind(this));
     }
-
-    callbackOnDragEnd() {}
-
-    //dragStart(e) { }
 
     dragEnd(e) {
         let el = e.target;
         this.setElementPosition(e.clientX, e.clientY);
-        this.callbackOnDragEnd();
-
     }
 
     setElementPosition(x, y) {
@@ -56,7 +48,4 @@ export default class DraggbleItem {
         this.container.appendChild(el);
         return el;
     }
-
-    //move(e) { }
-
 }

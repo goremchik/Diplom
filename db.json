@@ -1,13 +1,12 @@
 {
   "gateway": {
     "view": {
-      "x": 565,
-      "y": 267
+      "x": 553,
+      "y": 428
     },
     "id": "1",
-    "name": "Gateway",
+    "name": "Gateway234",
     "connectionType": "Ethernet",
-    "deviceType": "gateway",
     "additional": {
       "customParam": "Value"
     },
@@ -16,6 +15,7 @@
       "mask": "255.255.255.0",
       "ipGateway": "192.168.1.1"
     },
+    "deviceType": "gateway",
     "routers": [
       {
         "view": {
@@ -23,15 +23,16 @@
           "y": 300
         },
         "id": "11",
-        "name": "Router 1",
+        "name": "Router 11",
         "connectionType": "Wifi",
-        "deviceType": "router",
         "additional": {},
         "config": {
           "ip": "192.168.2.2",
           "mask": "255.255.255.0",
-          "ipGateway": "192.168.2.1"
+          "ipGateway": "192.168.2.1",
+          "dfd": "ff"
         },
+        "deviceType": "router",
         "nodes": [
           {
             "view": {
@@ -41,12 +42,12 @@
             "id": "111",
             "name": "Node 11",
             "connectionType": "Bluetooth",
-            "deviceType": "node",
             "additional": {},
             "config": {
               "name": "ble1",
               "password": "123"
-            }
+            },
+            "deviceType": "node"
           },
           {
             "view": {
@@ -56,12 +57,14 @@
             "id": "112",
             "name": "Node 12",
             "connectionType": "Bluetooth",
-            "deviceType": "node",
             "additional": {},
             "config": {
               "name": "ble1",
               "password": "123"
-            }
+            },
+            "deviceType": "node",
+            "dataType": "ddd",
+            "measureUnits": "undefined"
           }
         ]
       },
@@ -73,28 +76,30 @@
         "id": "12",
         "name": "Router 2",
         "connectionType": "Wifi",
-        "deviceType": "router",
         "additional": {},
         "config": {
           "ip": "192.168.2.3",
           "mask": "255.255.255.0",
           "ipGateway": "192.168.2.1"
         },
+        "deviceType": "router",
         "nodes": [
           {
             "view": {
-              "x": 1277,
-              "y": 616
+              "x": 1053,
+              "y": 504
             },
             "id": "121",
             "name": "Node 21",
             "connectionType": "Bluetooth",
-            "deviceType": "node",
             "additional": {},
             "config": {
               "name": "ble2",
               "password": "123"
-            }
+            },
+            "deviceType": "node",
+            "dataType": "dfff",
+            "measureUnits": "undefined"
           },
           {
             "view": {
@@ -104,12 +109,68 @@
             "id": "122",
             "name": "Node 22",
             "connectionType": "Bluetooth",
-            "deviceType": "node",
             "additional": {},
             "config": {
               "name": "ble2",
               "password": "123"
-            }
+            },
+            "deviceType": "node"
+          }
+        ]
+      },
+      {
+        "view": {
+          "x": 616,
+          "y": 232
+        },
+        "id": "133",
+        "name": "Router 3",
+        "connectionType": "",
+        "additional": {},
+        "config": {},
+        "deviceType": "router",
+        "nodes": [
+          {
+            "view": {
+              "x": 539,
+              "y": 115
+            },
+            "id": "123",
+            "name": "Node 13",
+            "connectionType": "",
+            "additional": {},
+            "config": {},
+            "deviceType": "node",
+            "dataType": "undefined",
+            "measureUnits": "undefined"
+          },
+          {
+            "view": {
+              "x": 759,
+              "y": 174
+            },
+            "id": "444",
+            "name": "ggg",
+            "connectionType": "",
+            "additional": {},
+            "config": {},
+            "deviceType": "node",
+            "dataType": "undefined",
+            "measureUnits": "undefined"
+          },
+          {
+            "view": {
+              "x": 428,
+              "y": 141
+            },
+            "id": "123",
+            "name": "Node 13",
+            "connectionType": "",
+            "additional": {},
+            "config": {},
+            "deviceType": "node",
+            "dataType": "undefined",
+            "measureUnits": "undefined"
           }
         ]
       }

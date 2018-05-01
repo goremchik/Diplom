@@ -3,6 +3,7 @@
  */
 
 import DraggbleItem from './DraggbleItem';
+import dateFormat from 'dateFormat';
 
 const modalSaveBtn = document.getElementById('modalSaveBtn');
 const modalBody = document.getElementById('modalBody');
@@ -11,13 +12,16 @@ const modalDeleteBtn = document.getElementById('modalDeleteBtn');
 
 export default class NetworkItem extends DraggbleItem {
 
-    constructor(container, icon, { view, additional, config, name, id, connectionType, deviceType }) {
-        super(container, icon, view, name);
+    constructor(container, icon, { view, additional, config, name, id, connectionType, deviceType, lastData = new Date(), sendingFrequency = 0 }) {
+
+        super(container, icon, view, name, +new Date(lastData) + sendingFrequency * 1000);
 
         this.deleted = false;
-        this.id = id;
+        this.id = parseInt(id || Math.random() * 10e9);
         this.name = name;
         this.connectionType = connectionType;
+        this.lastData = lastData;
+        this.sendingFrequency = sendingFrequency;
         this.additional = additional;
         this.config = config;
         this.deviceType = deviceType;
@@ -50,7 +54,7 @@ export default class NetworkItem extends DraggbleItem {
             let el1 = window.prevElement;
             let el2 = window.nextElement;
 
-            if (el1.deviceType != el2.deviceType) {
+            if (el1.deviceType !== el2.deviceType) {
 
                 switch (el1.deviceType) {
                     case 'node':
@@ -93,9 +97,14 @@ export default class NetworkItem extends DraggbleItem {
                 ${ this.createInput('name', this.name) }
                 ${ this.createInput('connectionType', this.connectionType) }
                 ${ this.createInput('deviceType', this.deviceType, true) }                
+                ${ this.createInput('lastData', dateFormat(new Date(this.lastData), "isoDateTime"), true) }                
+                ${ this.createInput('sendingFrequency', this.sendingFrequency) }                
                 ${ this.deviceType === 'node' ?
-            this.createInput('dataType', this.dataType) +
-            this.createInput('measureUnits', this.measureUnits) : '' }
+                    this.createInput('dataType', this.dataType) +
+                    this.createInput('measureUnits', this.measureUnits) +
+                    this.createInput('priority', this.priority)
+                    : '' 
+                }
             </div>
             
             <h3>Config</h3>
@@ -120,9 +129,7 @@ export default class NetworkItem extends DraggbleItem {
                     this.drawLines('nodes', this.id);
                 }
                 $('#modal').modal('hide');
-
             };
-
 
             document.getElementById('addConfigBtn').addEventListener('click', () => {
                 let configContent = document.getElementById('configContent');
@@ -149,8 +156,6 @@ export default class NetworkItem extends DraggbleItem {
             modalSaveBtn.onclick = this.onSaveClick.bind(this);
         }
     }
-
-    //delete
 
     getConfigHtml() {
         let html = '';
@@ -181,12 +186,10 @@ export default class NetworkItem extends DraggbleItem {
 
         modalBody.querySelectorAll(`[data-group="${ group }"]`)
                  .forEach(el => {
-                     console.log(el);
                     let key = el.querySelector('.key-item').value;
                     if (key) {
                         obj[key] = el.querySelector('.value-item').value;
                     }
-
                  });
 
         return obj;
@@ -195,21 +198,22 @@ export default class NetworkItem extends DraggbleItem {
     onSaveClick() {
         this.id = this.getDataValue('id');
         this.name = this.getDataValue('name');
-        this.connectionType =this.getDataValue('connectionType');
+        this.connectionType = this.getDataValue('connectionType');
+
+        this.sendingFrequency = this.getDataValue('sendingFrequency');
+        this.lastData = this.getDataValue('lastData');
 
         if (this.deviceType === 'node') {
             this.measureUnits = this.getDataValue('measureUnits');
             this.dataType = this.getDataValue('dataType');
+            this.priority = this.getDataValue('priority');
         }
 
         this.config = this.getGroupValue('config');
         this.additional = this.getGroupValue('additional');
         $('#modal').modal('hide');
 
-        console.log(this);
-
         this.element.querySelector('div').innerHTML = this.name;
-
     }
 
     createInput(name, value, disabled, groupName) {
@@ -247,6 +251,4 @@ export default class NetworkItem extends DraggbleItem {
             $(container).line(view.x, view.y, router.view.x, router.view.y, { color:"#000", stroke: 1, zindex: 1 });
         });
     }
-
 }
-

@@ -7,31 +7,28 @@ import Gateway from './scripts/Gateway';
 import Router from './scripts/Router';
 import Node from './scripts/Node';
 
-let url = 'http://localhost:3000/gateway';
-let container = document.getElementById('dragContainer');
-let saveBtn = document.getElementById('saveBtn');
-
+const url = 'http://localhost:3000/config';
+const container = document.getElementById('dragContainer');
+const saveBtn = document.getElementById('saveBtn');
+const linesContainer = document.getElementById('linesContainer');
 const contextMenu = document.getElementById('contextMenu');
 
 let gateway = null;
-fetch(url).then(data => data.json())
-          .then(data => new Gateway(container, data))
+fetch(url).then((data) => data.json())
+          .then(({ gateway }) => new Gateway(container, gateway))
           .then(el => { gateway = el; });
 
 saveBtn.addEventListener('click', () => {
-
     fetch(url, {
-        body: JSON.stringify(gateway),
+        body: JSON.stringify({ gateway }),
         headers: { 'content-type': 'application/json' },
         method: 'POST',
     })
     .then(response => { location.reload() });
 });
 
-
 document.addEventListener("contextmenu", e => {
     e.preventDefault();
-    // console.log(e)
     let x = e.pageX, y = e.pageY;
 
     contextMenu.style.left = x + 'px';
@@ -39,12 +36,13 @@ document.addEventListener("contextmenu", e => {
     contextMenu.style.display = 'block';
 });
 
-document.addEventListener("click", e => {
+document.addEventListener("click", () => {
     contextMenu.style.display = 'none';
 });
 
 document.getElementById('addRouterBtn').addEventListener("click", e => {
     let x = e.screenX, y = e.screenY;
+
     new Router(container, {
         view: { x, y },
         additional: {},
@@ -56,11 +54,11 @@ document.getElementById('addRouterBtn').addEventListener("click", e => {
         nodes: [],
         isNew: true
     });
-    //contextMenu.style.display = 'none';
 });
 
 document.getElementById('addNodeBtn').addEventListener("click", e => {
     let x = e.screenX, y = e.screenY;
+
     new Node(container, {
         view: { x, y },
         additional: {},
@@ -71,7 +69,46 @@ document.getElementById('addNodeBtn').addEventListener("click", e => {
         deviceType: 'node',
         isNew: true
     });
-    //contextMenu.style.display = 'none';
 });
 
+document.getElementById('exportBtn').addEventListener("click", () => {
 
+    let textFileAsBlob = new Blob([JSON.stringify({ gateway })], {type:'text/plain'});
+    let fileNameToSaveAs = 'Iot_Network';
+    let downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+
+    if (!window.webkitURL) {
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+});
+
+document.getElementById('importInput').addEventListener("change", ({ target }) => {
+    let file = target.files[0];
+
+    if (!FileReader) { return; }
+    if (!file.type.match('text.*')) { return; }
+
+    let reader = new FileReader();
+
+    reader.onload = function({ target }) {
+        let fileText = target.result;
+        let obj = JSON.parse(fileText);
+
+        if (obj) {
+            container.innerHTML = '';
+            linesContainer.innerHTML = '';
+            gateway = new Gateway(container, obj);
+        }
+    };
+
+    reader.readAsText(file);
+});

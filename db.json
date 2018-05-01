@@ -1,179 +1,214 @@
 {
-  "gateway": {
-    "view": {
-      "x": 553,
-      "y": 428
-    },
-    "id": "1",
-    "name": "Gateway234",
-    "connectionType": "Ethernet",
-    "additional": {
-      "customParam": "Value"
-    },
-    "config": {
-      "ip": "192.168.1.2",
-      "mask": "255.255.255.0",
-      "ipGateway": "192.168.1.1"
-    },
-    "deviceType": "gateway",
-    "routers": [
-      {
-        "view": {
-          "x": 350,
-          "y": 300
-        },
-        "id": "11",
-        "name": "Router 11",
-        "connectionType": "Wifi",
-        "additional": {},
-        "config": {
-          "ip": "192.168.2.2",
-          "mask": "255.255.255.0",
-          "ipGateway": "192.168.2.1",
-          "dfd": "ff"
-        },
-        "deviceType": "router",
-        "nodes": [
-          {
-            "view": {
-              "x": 150,
-              "y": 200
-            },
-            "id": "111",
-            "name": "Node 11",
-            "connectionType": "Bluetooth",
-            "additional": {},
-            "config": {
-              "name": "ble1",
-              "password": "123"
-            },
-            "deviceType": "node"
-          },
-          {
-            "view": {
-              "x": 150,
-              "y": 400
-            },
-            "id": "112",
-            "name": "Node 12",
-            "connectionType": "Bluetooth",
-            "additional": {},
-            "config": {
-              "name": "ble1",
-              "password": "123"
-            },
-            "deviceType": "node",
-            "dataType": "ddd",
-            "measureUnits": "undefined"
-          }
-        ]
+  "config": {
+    "gateway": {
+      "view": {
+        "x": 553,
+        "y": 428
       },
-      {
-        "view": {
-          "x": 807,
-          "y": 464
-        },
-        "id": "12",
-        "name": "Router 2",
-        "connectionType": "Wifi",
-        "additional": {},
-        "config": {
-          "ip": "192.168.2.3",
-          "mask": "255.255.255.0",
-          "ipGateway": "192.168.2.1"
-        },
-        "deviceType": "router",
-        "nodes": [
-          {
-            "view": {
-              "x": 1053,
-              "y": 504
-            },
-            "id": "121",
-            "name": "Node 21",
-            "connectionType": "Bluetooth",
-            "additional": {},
-            "config": {
-              "name": "ble2",
-              "password": "123"
-            },
-            "deviceType": "node",
-            "dataType": "dfff",
-            "measureUnits": "undefined"
-          },
-          {
-            "view": {
-              "x": 1056,
-              "y": 351
-            },
-            "id": "122",
-            "name": "Node 22",
-            "connectionType": "Bluetooth",
-            "additional": {},
-            "config": {
-              "name": "ble2",
-              "password": "123"
-            },
-            "deviceType": "node"
-          }
-        ]
+      "id": 1,
+      "name": "Gateway234",
+      "connectionType": "Ethernet",
+      "lastData": "2018-05-01T21:43:38.477Z",
+      "sendingFrequency": 0,
+      "additional": {
+        "customParam": "Value"
       },
-      {
-        "view": {
-          "x": 616,
-          "y": 232
+      "config": {
+        "ip": "192.168.1.2",
+        "mask": "255.255.255.0",
+        "ipGateway": "192.168.1.1"
+      },
+      "deviceType": "gateway",
+      "routers": [
+        {
+          "view": {
+            "x": 350,
+            "y": 300
+          },
+          "id": 11,
+          "name": "Router 11",
+          "connectionType": "Wifi",
+          "lastData": "2018-05-01T21:43:38.479Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "config": {
+            "ip": "192.168.2.2",
+            "mask": "255.255.255.0",
+            "ipGateway": "192.168.2.1",
+            "dfd": "ff"
+          },
+          "deviceType": "router",
+          "nodes": [
+            {
+              "view": {
+                "x": 150,
+                "y": 200
+              },
+              "id": "111",
+              "name": "Node 11",
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-02T00:43:38+0300",
+              "sendingFrequency": "3600",
+              "additional": {},
+              "config": {
+                "name": "ble1",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "dataType": "",
+              "measureUnits": "",
+              "priority": "5"
+            },
+            {
+              "view": {
+                "x": 150,
+                "y": 400
+              },
+              "id": 112,
+              "name": "Node 12",
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.479Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {
+                "name": "ble1",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "dataType": "ddd",
+              "measureUnits": "undefined",
+              "priority": 5
+            }
+          ]
         },
-        "id": "133",
-        "name": "Router 3",
-        "connectionType": "",
-        "additional": {},
-        "config": {},
-        "deviceType": "router",
-        "nodes": [
-          {
-            "view": {
-              "x": 539,
-              "y": 115
-            },
-            "id": "123",
-            "name": "Node 13",
-            "connectionType": "",
-            "additional": {},
-            "config": {},
-            "deviceType": "node",
-            "dataType": "undefined",
-            "measureUnits": "undefined"
+        {
+          "view": {
+            "x": 807,
+            "y": 464
           },
-          {
-            "view": {
-              "x": 759,
-              "y": 174
-            },
-            "id": "444",
-            "name": "ggg",
-            "connectionType": "",
-            "additional": {},
-            "config": {},
-            "deviceType": "node",
-            "dataType": "undefined",
-            "measureUnits": "undefined"
+          "id": 12,
+          "name": "Router 2",
+          "connectionType": "Wifi",
+          "lastData": "2018-05-01T21:43:38.482Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "config": {
+            "ip": "192.168.2.3",
+            "mask": "255.255.255.0",
+            "ipGateway": "192.168.2.1"
           },
-          {
-            "view": {
-              "x": 428,
-              "y": 141
+          "deviceType": "router",
+          "nodes": [
+            {
+              "view": {
+                "x": 1053,
+                "y": 504
+              },
+              "id": 121,
+              "name": "Node 21",
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.482Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {
+                "name": "ble2",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "dataType": "dfff",
+              "measureUnits": "undefined",
+              "priority": 5
             },
-            "id": "123",
-            "name": "Node 13",
-            "connectionType": "",
-            "additional": {},
-            "config": {},
-            "deviceType": "node",
-            "dataType": "undefined",
-            "measureUnits": "undefined"
-          }
-        ]
-      }
-    ]
+            {
+              "view": {
+                "x": 1056,
+                "y": 351
+              },
+              "id": 122,
+              "name": "Node 22",
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {
+                "name": "ble2",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "dataType": "",
+              "measureUnits": "",
+              "priority": 5
+            }
+          ]
+        },
+        {
+          "view": {
+            "x": 616,
+            "y": 232
+          },
+          "id": 133,
+          "name": "Router 3",
+          "connectionType": "",
+          "lastData": "2018-05-01T21:43:38.483Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "config": {},
+          "deviceType": "router",
+          "nodes": [
+            {
+              "view": {
+                "x": 539,
+                "y": 115
+              },
+              "id": 123,
+              "name": "Node 13",
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {},
+              "deviceType": "node",
+              "dataType": "undefined",
+              "measureUnits": "undefined",
+              "priority": 5
+            },
+            {
+              "view": {
+                "x": 759,
+                "y": 174
+              },
+              "id": 444,
+              "name": "ggg1",
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {},
+              "deviceType": "node",
+              "dataType": "undefined",
+              "measureUnits": "undefined",
+              "priority": 5
+            },
+            {
+              "view": {
+                "x": 428,
+                "y": 141
+              },
+              "id": 123,
+              "name": "Node 13",
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "config": {},
+              "deviceType": "node",
+              "dataType": "undefined",
+              "measureUnits": "undefined",
+              "priority": 5
+            }
+          ]
+        }
+      ]
+    }
   }
 }

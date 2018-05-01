@@ -4,12 +4,12 @@
 
 export default class DraggbleItem {
 
-    constructor(container, icon, view, name) {
+    constructor(container, icon, view, name, newDate) {
         this.container = container;
         this.icon = icon;
         this.view = view;
 
-        this.element = this.createElement(name);
+        this.element = this.createElement(name, newDate);
         this.setElementPosition(view.x, view.y);
 
         this.element.addEventListener('dragend', this.dragEnd.bind(this));
@@ -27,7 +27,7 @@ export default class DraggbleItem {
         this.view.y = y;
     }
 
-    createElement(name) {
+    createElement(name, newDate) {
         let el = document.createElement('div');
 
         el.className = 'draggable';
@@ -40,10 +40,11 @@ export default class DraggbleItem {
             el.appendChild(img);
         }
 
-        let span = document.createElement('div');
-        span.style.textAlign = 'center';
-        span.innerText = name;
-        el.appendChild(span);
+        let div = document.createElement('div');
+        div.style.textAlign = 'center';
+        div.innerText = name;
+        div.style.background = new Date() > newDate ? '#ff5353' : '#fff';
+        el.appendChild(div);
 
         this.container.appendChild(el);
         return el;

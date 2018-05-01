@@ -33,5 +33,7 @@
     "server": "webpack-dev-server",
     "data-server": "json-server --watch db.json"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dateformat": "^3.0.3"
+  }
 }

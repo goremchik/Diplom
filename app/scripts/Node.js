@@ -10,8 +10,10 @@ export default class Node extends NetworkItem {
     constructor(container, obj) {
         super(container, icon, obj);
 
-        this.dataType = obj.dataType;
-        this.measureUnits = obj.measureUnits;
+        this.dataType = obj.dataType || '';
+        this.measureUnits = obj.measureUnits || '';
+
+        this.priority = obj.priority || 5;
     }
 
 }

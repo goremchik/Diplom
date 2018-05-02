@@ -8,10 +8,13 @@ import Router from './scripts/Router';
 import Node from './scripts/Node';
 
 const url = 'http://localhost:3000/config';
+const realData = 'http://localhost:3000/real';
 const container = document.getElementById('dragContainer');
+const realContainer = document.getElementById('realContainer');
 const saveBtn = document.getElementById('saveBtn');
 const linesContainer = document.getElementById('linesContainer');
 const contextMenu = document.getElementById('contextMenu');
+const modalCompareBody = document.getElementById('modalCompareBody');
 
 let gateway = null;
 fetch(url).then((data) => data.json())
@@ -112,3 +115,61 @@ document.getElementById('importInput').addEventListener("change", ({ target }) =
 
     reader.readAsText(file);
 });
+
+
+document.getElementById('compareBtn').addEventListener("click", () => {
+    fetch(realData).then((data) => data.json())
+        .then(({ gateway }) => gateway)
+        .then( gatewayData => {
+            realContainer.innerHTML = '';
+            let realGateway = new Gateway(realContainer, gatewayData, true);
+            compareItems(gateway, realGateway, true);
+        });
+});
+
+function compareItems(item1, item2, isGlobal) {
+    if (isGlobal) {
+        modalCompareBody.innerHTML = '';
+        $('#modalCompare').modal('show');
+    }
+    for (let i in item1) {
+
+        switch(i) {
+            case 'name':
+            case 'view':
+            case 'container':
+            case 'element':
+            case 'icon':
+            case 'deleted':
+            case 'isNew':
+            case 'additional':
+                break;
+            case 'config':
+            case 'visibleDevices':
+                for (let j in item1[i]) {
+                    if (item1[i][j] !== item2[i][j]) {
+                        showDiffObjects(`Device id: ${item1.id}; Key: ${i + ' ' + j}; Current value: ${item1[i][i]}; Real value: ${item2[i]}`);
+                    }
+                }
+                break;
+            case 'nodes':
+            case 'routers':
+                item1[i].forEach((el, index) => {
+                    compareItems(item1[i][index], item2[i][index], false);
+                });
+                break;
+            default:
+                console.log(i, item1[i], item2[i]);
+                if (item1[i] !== item2[i]) {
+                    showDiffObjects(`Device id: ${item1.id}; Key: ${i}; Current value: ${item1[i]}; Real value: ${item2[i]}`);
+                }
+                break;
+        }
+    }
+}
+
+function showDiffObjects(str) {
+    let p = document.createElement('p');
+    p.innerText = str;
+    modalCompareBody.appendChild(p);
+}

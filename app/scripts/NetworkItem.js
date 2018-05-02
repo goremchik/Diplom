@@ -12,7 +12,7 @@ const modalDeleteBtn = document.getElementById('modalDeleteBtn');
 
 export default class NetworkItem extends DraggbleItem {
 
-    constructor(container, icon, { view, additional, config, name, id, connectionType, deviceType, lastData = new Date(), sendingFrequency = 0 }) {
+    constructor(container, icon, { view = { x: 0, y: 0 }, additional = {}, config = {}, name = '', id, connectionType, deviceType, lastData = new Date(), sendingFrequency = 0, mbTransferred = 0, transferSpeed = 0, visibleDevices = {} }) {
 
         super(container, icon, view, name, +new Date(lastData) + sendingFrequency * 1000);
 
@@ -23,8 +23,11 @@ export default class NetworkItem extends DraggbleItem {
         this.lastData = lastData;
         this.sendingFrequency = sendingFrequency;
         this.additional = additional;
+        this.visibleDevices = visibleDevices;
         this.config = config;
         this.deviceType = deviceType;
+        this.mbTransferred = mbTransferred;
+        this.transferSpeed = transferSpeed;
 
         this.element.addEventListener('click', (e) => { this.onClick(e); });
     }
@@ -99,6 +102,9 @@ export default class NetworkItem extends DraggbleItem {
                 ${ this.createInput('deviceType', this.deviceType, true) }                
                 ${ this.createInput('lastData', dateFormat(new Date(this.lastData), "isoDateTime"), true) }                
                 ${ this.createInput('sendingFrequency', this.sendingFrequency) }                
+                ${ this.createInput('mbTransferred', this.mbTransferred, true) }    
+                ${ this.createInput('transferSpeed', this.transferSpeed, true) }    
+                            
                 ${ this.deviceType === 'node' ?
                     this.createInput('dataType', this.dataType) +
                     this.createInput('measureUnits', this.measureUnits) +
@@ -109,13 +115,18 @@ export default class NetworkItem extends DraggbleItem {
             
             <h3>Config</h3>
             <div id="configContent">
-                ${ this.getConfigHtml() }
+                ${ this.getGroupHtml('config') }
             </div>
             <div class="clearfix"><button id="addConfigBtn" type="button" class="btn btn-light" style="float:right;">+ Add</button></div>
             
             <h3>Additional</h3>
             <div id="additionalContent">
-                ${ this.getAdditionalHtml() }
+                ${ this.getGroupHtml('additional') }
+            </div>            
+            
+            <h3>Visible devices</h3>
+            <div id="visibleContent">
+                ${ this.getGroupHtml('visibleDevices') }
             </div>
         `;
 
@@ -157,21 +168,11 @@ export default class NetworkItem extends DraggbleItem {
         }
     }
 
-    getConfigHtml() {
+    getGroupHtml(group) {
         let html = '';
 
-        for (let i in this.config) {
-            html += this.createInput(i, this.config[i], false, 'config');
-        }
-
-        return html;
-    }
-
-    getAdditionalHtml() {
-        let html = '';
-
-        for (let i in this.additional) {
-            html += this.createInput(i, this.additional[i], true, 'additional');
+        for (let i in this[group]) {
+            html += this.createInput(i, this[group][i], false, group);
         }
 
         return html;
@@ -201,7 +202,6 @@ export default class NetworkItem extends DraggbleItem {
         this.connectionType = this.getDataValue('connectionType');
 
         this.sendingFrequency = this.getDataValue('sendingFrequency');
-        this.lastData = this.getDataValue('lastData');
 
         if (this.deviceType === 'node') {
             this.measureUnits = this.getDataValue('measureUnits');
@@ -234,21 +234,25 @@ export default class NetworkItem extends DraggbleItem {
     }
 
     drawLines(name, context) {
-        let view = this.view;
-        let container = linesContainer.querySelector(`[data-line="${ context }"`);
+        if (this.container.id === 'dragContainer') {
+            let view = this.view;
+            let container = linesContainer.querySelector(`[data-line="${ context }"`);
 
-        if (!container) {
-            container = document.createElement('div');
-            container.setAttribute('data-line', context);
-            linesContainer.appendChild(container);
+            if (!container) {
+                container = document.createElement('div');
+                container.setAttribute('data-line', context);
+                linesContainer.appendChild(container);
+            }
+
+            container.innerHTML = '';
+
+            if (this.deleted) {
+                return;
+            }
+
+            this[name].forEach(router => {
+                $(container).line(view.x, view.y, router.view.x, router.view.y, {color: "#000", stroke: 1, zindex: 1});
+            });
         }
-
-        container.innerHTML = '';
-
-        if (this.deleted) { return; }
-
-        this[name].forEach(router => {
-            $(container).line(view.x, view.y, router.view.x, router.view.y, { color:"#000", stroke: 1, zindex: 1 });
-        });
     }
 }

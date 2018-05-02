@@ -9,7 +9,10 @@ import icon from '../img/gateway.png';
 export default class Gateway extends NetworkItem {
 
     constructor(container, obj) {
+        console.log(obj);
         super(container, icon, obj);
+
+
 
         this.routers = obj.routers.filter(el => el).map(el => new Router(container, el));
 

@@ -31,6 +31,7 @@
     "prod": "webpack --mode production",
     "dev": "webpack --mode development",
     "server": "webpack-dev-server",
+    "start": "npm run server | npm run data-server",
     "data-server": "json-server --watch db.json"
   },
   "dependencies": {

@@ -15,19 +15,19 @@
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand h1" href="#">Controle IoT System</a>
     <form class="form-inline">
-        <button id="exportBtn" class="btn btn-outline-secondary">Export</button>
+        <button id="compareBtn" class="btn btn-outline-secondary" type="button">Compare</button>
+        <button id="exportBtn" class="btn btn-outline-secondary" type="button">Export</button>
         <label class="btn btn-outline-secondary">
           Import
           <input id="importInput" type="file" hidden>
         </label>
-        <button class="btn btn-outline-secondary" onclick="location.reload()">Cancel</button>
-        <button id="saveBtn" class="btn btn-outline-secondary">Save</button>
+        <button class="btn btn-outline-secondary" onclick="location.reload()" type="button">Cancel</button>
+        <button id="saveBtn" class="btn btn-outline-secondary" type="button">Save</button>
     </form>
   </nav>
 
   <div class="container drag-container" id="dragContainer">
-
-  </div>
+  <div id="realContainer" hidden></div>
 
   <div id="linesContainer"></div>
 
@@ -51,6 +51,23 @@
       </div>
     </div>
   </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalCompare">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Difference with real</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="modalCompareBody">No changes</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <div id='contextMenu'>
     <ul id='contextItems'>

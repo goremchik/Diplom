@@ -13,12 +13,19 @@
       "additional": {
         "customParam": "Value"
       },
+      "visibleDevices": {
+        "11": "0.01",
+        "133": "0.02",
+        "12": "0.01"
+      },
       "config": {
         "ip": "192.168.1.2",
         "mask": "255.255.255.0",
         "ipGateway": "192.168.1.1"
       },
       "deviceType": "gateway",
+      "mbTransferred": 0,
+      "transferSpeed": 0,
       "routers": [
         {
           "view": {
@@ -31,6 +38,10 @@
           "lastData": "2018-05-01T21:43:38.479Z",
           "sendingFrequency": 0,
           "additional": {},
+          "visibleDevices": {
+            "111": 0.01,
+            "112": 0.01
+          },
           "config": {
             "ip": "192.168.2.2",
             "mask": "255.255.255.0",
@@ -38,23 +49,28 @@
             "dfd": "ff"
           },
           "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
           "nodes": [
             {
               "view": {
                 "x": 150,
                 "y": 200
               },
-              "id": "111",
+              "id": 111,
               "name": "Node 11",
               "connectionType": "Bluetooth",
               "lastData": "2018-05-02T00:43:38+0300",
               "sendingFrequency": "3600",
               "additional": {},
+              "visibleDevices": {},
               "config": {
                 "name": "ble1",
                 "password": "123"
               },
               "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
               "dataType": "",
               "measureUnits": "",
               "priority": "5"
@@ -70,13 +86,16 @@
               "lastData": "2018-05-01T21:43:38.479Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {
                 "name": "ble1",
                 "password": "123"
               },
               "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
               "dataType": "ddd",
-              "measureUnits": "undefined",
+              "measureUnits": "",
               "priority": 5
             }
           ]
@@ -92,12 +111,15 @@
           "lastData": "2018-05-01T21:43:38.482Z",
           "sendingFrequency": 0,
           "additional": {},
+          "visibleDevices": {},
           "config": {
             "ip": "192.168.2.3",
             "mask": "255.255.255.0",
             "ipGateway": "192.168.2.1"
           },
           "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
           "nodes": [
             {
               "view": {
@@ -110,13 +132,16 @@
               "lastData": "2018-05-01T21:43:38.482Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {
                 "name": "ble2",
                 "password": "123"
               },
               "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
               "dataType": "dfff",
-              "measureUnits": "undefined",
+              "measureUnits": "",
               "priority": 5
             },
             {
@@ -130,11 +155,14 @@
               "lastData": "2018-05-01T21:43:38.483Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {
                 "name": "ble2",
                 "password": "123"
               },
               "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
               "dataType": "",
               "measureUnits": "",
               "priority": 5
@@ -152,8 +180,11 @@
           "lastData": "2018-05-01T21:43:38.483Z",
           "sendingFrequency": 0,
           "additional": {},
+          "visibleDevices": {},
           "config": {},
           "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
           "nodes": [
             {
               "view": {
@@ -166,10 +197,13 @@
               "lastData": "2018-05-01T21:43:38.483Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {},
               "deviceType": "node",
-              "dataType": "undefined",
-              "measureUnits": "undefined",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
               "priority": 5
             },
             {
@@ -183,10 +217,13 @@
               "lastData": "2018-05-01T21:43:38.483Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {},
               "deviceType": "node",
-              "dataType": "undefined",
-              "measureUnits": "undefined",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
               "priority": 5
             },
             {
@@ -194,17 +231,217 @@
                 "x": 428,
                 "y": 141
               },
-              "id": 123,
+              "id": "12355",
               "name": "Node 13",
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": "0",
+              "additional": {},
+              "visibleDevices": {},
+              "config": {},
+              "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
+              "priority": "5"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "real": {
+    "gateway": {
+      "id": 1,
+      "connectionType": "Ethernet",
+      "lastData": "2018-05-01T21:43:38.477Z",
+      "sendingFrequency": 10,
+      "additional": {
+        "customParam": "Value"
+      },
+      "visibleDevices": {
+        "11": "0.01",
+        "133": "0.02",
+        "12": "0.01"
+      },
+      "config": {
+        "ip": "192.168.1.2",
+        "mask": "255.255.255.0",
+        "ipGateway": "192.168.1.1"
+      },
+      "deviceType": "gateway",
+      "mbTransferred": 0,
+      "transferSpeed": 0,
+      "routers": [
+        {
+          "id": 11,
+          "connectionType": "Wifi",
+          "lastData": "2018-05-01T21:43:38.479Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "visibleDevices": {
+            "111": 0.01,
+            "112": 0.01
+          },
+          "config": {
+            "ip": "192.168.2.2",
+            "mask": "255.255.255.0",
+            "ipGateway": "192.168.2.1",
+            "dfd": "ff"
+          },
+          "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
+          "nodes": [
+            {
+              "id": 111,
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-02T00:43:38+0300",
+              "sendingFrequency": "3600",
+              "additional": {},
+              "visibleDevices": {},
+              "config": {
+                "name": "ble1",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
+              "priority": "5"
+            },
+            {
+              "id": 112,
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.479Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "visibleDevices": {},
+              "config": {
+                "name": "ble1",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "mbTransferred": 10,
+              "transferSpeed": 10,
+              "dataType": "ddd",
+              "measureUnits": "",
+              "priority": 5
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "connectionType": "Wifi",
+          "lastData": "2018-05-01T21:43:38.482Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "visibleDevices": {},
+          "config": {
+            "ip": "192.168.2.3",
+            "mask": "255.255.255.0",
+            "ipGateway": "192.168.2.1"
+          },
+          "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
+          "nodes": [
+            {
+              "id": 121,
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.482Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "visibleDevices": {},
+              "config": {
+                "name": "ble2",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "dfff",
+              "measureUnits": "undefined",
+              "priority": 5
+            },
+            {
+              "id": 122,
+              "connectionType": "Bluetooth",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "visibleDevices": {},
+              "config": {
+                "name": "ble2",
+                "password": "123"
+              },
+              "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
+              "priority": 5
+            }
+          ]
+        },
+        {
+          "id": 133,
+          "connectionType": "",
+          "lastData": "2018-05-01T21:43:38.483Z",
+          "sendingFrequency": 0,
+          "additional": {},
+          "visibleDevices": {},
+          "config": {},
+          "deviceType": "router",
+          "mbTransferred": 0,
+          "transferSpeed": 0,
+          "nodes": [
+            {
+              "id": 123,
               "connectionType": "",
               "lastData": "2018-05-01T21:43:38.483Z",
               "sendingFrequency": 0,
               "additional": {},
+              "visibleDevices": {},
               "config": {},
               "deviceType": "node",
-              "dataType": "undefined",
-              "measureUnits": "undefined",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
               "priority": 5
+            },
+            {
+              "id": 444,
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": 0,
+              "additional": {},
+              "visibleDevices": {},
+              "config": {},
+              "deviceType": "node",
+              "mbTransferred": 10,
+              "transferSpeed": 10,
+              "dataType": "",
+              "measureUnits": "",
+              "priority": 5
+            },
+            {
+              "id": "12355",
+              "connectionType": "",
+              "lastData": "2018-05-01T21:43:38.483Z",
+              "sendingFrequency": "0",
+              "additional": {},
+              "visibleDevices": {},
+              "config": {},
+              "deviceType": "node",
+              "mbTransferred": 0,
+              "transferSpeed": 0,
+              "dataType": "",
+              "measureUnits": "",
+              "priority": "5"
             }
           ]
         }
